@@ -5,12 +5,15 @@ import { CreateDayDto } from './definitions/createDayDto';
 import { Day } from './definitions/day.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { UpdateDayDto } from './definitions/updateDayDto';
+import { DayRepositoryRDB } from 'src/infrastructure/day/DayRepositoryRDB';
 
 @Injectable()
 export class DayService {
     constructor(
         @InjectRepository(Day)
-        private dayRepository: Repository<Day>
+        private dayRepository: Repository<Day>,
+        @InjectRepository(DayRepositoryRDB)
+        private customDayRepository: DayRepositoryRDB
     ) {}
 
     findAll(): Promise<Day[]> {
@@ -19,6 +22,10 @@ export class DayService {
 
     findOne(id: string): Promise<Day> {
         return this.dayRepository.findOne(id)
+    }
+
+    findOneByDate(date: string): Promise<Day> {
+        return this.customDayRepository.findOnyByDate(date)
     }
 
     create(dayToCreate: CreateDayDto) {
@@ -43,6 +50,10 @@ export class DayService {
             day.lunchTime = updateInfo.lunchTime
         }
         return this.dayRepository.save(day)
+    }
+
+    delete(id: string) {
+        return this.dayRepository.delete(id)
     }
 
 }
