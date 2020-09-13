@@ -1,16 +1,16 @@
-import {Entity,Column,PrimaryGeneratedColumn} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Day {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    startTime: Date
+  @Column()
+  startTime: Date;
 
-    @Column()
-    endTime: Date
+  @Column()
+  endTime: Date;
 
-    @Column()
-    lunchTime: number
+  @Column()
+  lunchTime: number;
 }

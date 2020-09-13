@@ -3,13 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DayController } from './application/day/day.controller';
 import { DayModule } from './domain/day/day.module';
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { Connection } from 'typeorm'
-import { Day as DayEntity } from './domain/day/definitions/day.entity'
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
+import { Day as DayEntity } from './domain/day/definitions/day.entity';
 import { ConfigModule } from '@nestjs/config';
 
-@Module(
-  {
+@Module({
   imports: [
     DayModule,
     ConfigModule.forRoot(),
@@ -22,12 +21,11 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DB_NAME,
       entities: [DayEntity],
       synchronize: true,
-    })
+    }),
   ],
   controllers: [AppController, DayController],
   providers: [AppService],
 })
 export class AppModule {
   constructor(private connection: Connection) {}
-
 }
